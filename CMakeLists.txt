@@ -26,7 +26,7 @@ file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 #set(SRC_FILES3 ${PROJECT_SOURCE_DIR}/src/task3/task.cpp)
 
 
-#set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 #add_definitions("-std=c++11 -Wall -g -pthread")
 
 #add_library(task1_lib ${SRC_FILES1})
@@ -34,7 +34,7 @@ file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 #add_library(task3_lib ${SRC_FILES3})
 
 #list(APPEND CMAKE_CXX_FLAGS "-pthread")
-add_executable(task1 src/task1/main.cpp)
+add_executable(task1 ${PROJECT_SOURCE_DIR}/src/task1/main.cpp)
 add_executable(task2 ${PROJECT_SOURCE_DIR}/src/task2/main.cpp)
 add_executable(task3 ${PROJECT_SOURCE_DIR}/src/task3/main.cpp)
 
