@@ -4,7 +4,10 @@ cmake_minimum_required(VERSION 2.8)
 set(PROJECT_NAME task1) 
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-g -Wall -pthread")
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
 # If you want your own include/ directory, set this, and then you can do
 # include_directories(${COMMON_INCLUDES}) in other CMakeLists.txt files.
@@ -18,26 +21,28 @@ include_directories(${COMMON_INCLUDES})
 file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 
 
-set(SRC_FILES1 ${PROJECT_SOURCE_DIR}/src/task1.cpp)
-set(SRC_FILES2 ${PROJECT_SOURCE_DIR}/src/task2.cpp)
-set(SRC_FILES3 ${PROJECT_SOURCE_DIR}/src/task3.cpp)
+#set(SRC_FILES1 src/task1/task.h)
+#set(SRC_FILES2 ${PROJECT_SOURCE_DIR}/src/task2/task2.h)
+#set(SRC_FILES3 ${PROJECT_SOURCE_DIR}/src/task3/task.cpp)
 
 
-set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_CXX_STANDARD 11)
+#add_definitions("-std=c++11 -Wall -g -pthread")
 
-add_library(task1_lib ${SRC_FILES1})
-add_library(task2_lib ${SRC_FILES2})
-add_library(task3_lib ${SRC_FILES3})
+#add_library(task1_lib ${SRC_FILES1})
+#add_library(task2_lib ${SRC_FILES2})
+#add_library(task3_lib ${SRC_FILES3})
 
+#list(APPEND CMAKE_CXX_FLAGS "-pthread")
+add_executable(task1 src/task1/main.cpp)
+add_executable(task2 ${PROJECT_SOURCE_DIR}/src/task2/main.cpp)
+add_executable(task3 ${PROJECT_SOURCE_DIR}/src/task3/main.cpp)
 
-add_executable(task1 ${PROJECT_SOURCE_DIR}/src/main1.cpp)
-add_executable(task2 ${PROJECT_SOURCE_DIR}/src/main2.cpp)
-add_executable(task3 ${PROJECT_SOURCE_DIR}/src/main3.cpp)
+#target_link_libraries(task1 task1_lib)
+#target_link_libraries(task2 task2_lib)
+#target_link_libraries(task3 task3_lib)
 
-target_link_libraries(task1 task1_lib)
-target_link_libraries(task2 task2_lib)
-target_link_libraries(task3 task3_lib)
-
+#target_link_libraries(task2 threads::Threads)
 
 ################################
 # Testing
