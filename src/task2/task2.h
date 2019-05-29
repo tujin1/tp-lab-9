@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <mutex>
 #include <thread>
+#include <iostream>
 
 std::mutex mu;
 int l = 0;
@@ -27,7 +28,10 @@ void mySort(T * begin, T * end, lambda comparator){
 
         i++;
 
-        l = 1;
+        if (i == end)
+            l = 2;
+        else
+            l = 1;
 
         mu.unlock();
 
