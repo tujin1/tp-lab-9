@@ -22,29 +22,6 @@ bool g_notified=false;
 bool g_notified1=true;
 #include <condition_variable>
 
-void cou(string *a, int array_size) {
-	
-		
-	while (b !=1) {
-		unique_lock<mutex>lk(g);
-		d.wait(lk, []() {return g_notified1; });
-		for (int i = 0; i < array_size; i++)
-		{
-			cout << a[i] << ", ";
-
-		}
-		cout << endl;
-		g_notified1 = false;
-		g_notified = true;
-		lk.unlock();
-		d.notify_all();
-	}
-		 
-		 
-	
-	}
-	
-
 
 void Sort(int array_size, string a[], bool comparison(string first, string second)) {
 
@@ -55,6 +32,7 @@ void Sort(int array_size, string a[], bool comparison(string first, string secon
 	{
 		
 		for (int int_counter = 0; int_counter < (array_size - i - 1); ++int_counter){
+			d.wait(lk, []() {return g_notified1; });
 			if (comparison(a[int_counter], a[int_counter + 1]))
 			{
 				
@@ -63,11 +41,10 @@ void Sort(int array_size, string a[], bool comparison(string first, string secon
 				a[int_counter] = a[int_counter + 1];
 				a[int_counter + 1] = temp;
 
-				g_notified = true;
-				g.unlock();
-				g_notified = false;
-			};
 			
+			};
+			 g_notified=true;
+ 			g_notified = false;
 			
 			
 			
@@ -98,16 +75,17 @@ int main()
 	
 	while (b != 1) {
 		if (g_notified == true) {
-			mtx.lock();
+			std::unique_lock<std::mutex> lk(mtx);
+		        d.wait(lk, []() {return g_notified; });
 			
 			
 
 			for (int i = 0; i < array_size; ++i) {
 				std::cout << a[i] << std::endl;
 			}
-
-			g_notified = false;
-			mtx.unlock();
+                        g_notified=true;
+ 			g_notified = false;
+			d.notify_all();
 		}
 	}
 
