@@ -44,8 +44,8 @@ void Sort(int array_size, string a[], bool comparison(string first, string secon
 			
 			};
 			 g_notified=true;
- 			g_notified = false;
-			
+ 			g_notified1 = false;
+			d.notify_all();
 			
 			
 		
@@ -83,7 +83,7 @@ int main()
 			for (int i = 0; i < array_size; ++i) {
 				std::cout << a[i] << std::endl;
 			}
-                        g_notified=true;
+                        g_notified1=true;
  			g_notified = false;
 			d.notify_all();
 		}
