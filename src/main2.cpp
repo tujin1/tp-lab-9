@@ -36,7 +36,7 @@ void Sort(int array_size, string a[], bool comparison(string first, string secon
 			if (comparison(a[int_counter], a[int_counter + 1]))
 			{
 				
-				g.lock();
+				
 				temp = a[int_counter];
 				a[int_counter] = a[int_counter + 1];
 				a[int_counter + 1] = temp;
